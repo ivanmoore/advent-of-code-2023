@@ -13,4 +13,20 @@ private fun String.firstDigit() = digits().first().digitToInt()
 
 private fun String.lastDigit() = digits().last().digitToInt()
 
-fun String.digits() = filter { it.isDigit() }
+val numberWords = listOf("one", "two", "three", "four", "five", "six", "seven", "eight", "nine")
+
+fun String.digits() = IntRange(0, this.length - 1)
+    .map { index ->
+        this.digitifyStartingAt(index)
+    }.joinToString("")
+
+fun String.digitifyStartingAt(index: Int) =
+    if (this[index].isDigit())
+        this[index].toString()
+    else numberStartingAt(index) ?: ""
+
+fun String.numberStartingAt(index: Int) =
+    numberWords
+        .mapIndexed { wordIndex, word -> if (this.startsWith(word, index)) (wordIndex + 1).toString() else null }
+        .filterNotNull()
+        .firstOrNull()
