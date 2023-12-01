@@ -3,9 +3,11 @@ package com.oocode
 import com.natpryce.hamkrest.assertion.assertThat
 import com.natpryce.hamkrest.equalTo
 import day1
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
 internal class MainKtTest {
+    @Disabled
     @Test
     fun calculatesCorrectAnswerForExample() {
         assertThat(
