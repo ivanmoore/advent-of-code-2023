@@ -6,7 +6,7 @@ import day1
 import digits
 import org.junit.jupiter.api.Test
 
-internal class MainKtTest {
+internal class Day1Test {
     @Test
     fun calculatesCorrectAnswerForExample() {
         assertThat(
