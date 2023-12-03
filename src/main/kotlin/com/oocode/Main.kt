@@ -1,8 +1,9 @@
+import com.oocode.Bag
 import java.io.File
 import kotlin.text.Charsets.UTF_8
 
 fun main(args: Array<String>) {
-    println(day1(File(args[0]).readText(UTF_8)))
+    println(Bag(red = 12, green = 13, blue = 14).possibilityTotal(File(args[0]).readText(UTF_8)))
 }
 
 fun day1(input: String) = input.split("\n").map { line -> line.calibrationValue() }.sum()
