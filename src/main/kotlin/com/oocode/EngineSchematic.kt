@@ -4,7 +4,7 @@ fun engineSchematicFrom(input: String) : EngineSchematic {
     val lines = input.split("\n")
     val numbers = lines.flatMapIndexed { index, line -> numbersFrom(line, index) }.toSet()
     val symbols = lines.flatMapIndexed { index, line -> symbolsFrom(line, index) }.toSet()
-    return EngineSchematic(numbers.filter { number -> number.isNextToASymbol(symbols) }.toSet())
+    return EngineSchematic(numbers, symbols)
 }
 
 private fun Number.isNextToASymbol(symbols: Set<Symbol>) = symbols.any { symbol -> symbol.isNextTo(this) }
@@ -32,6 +32,8 @@ data class Number(val startPosition: Pair<Int, Int>, val value: String) {
 
 data class Symbol(val position: Pair<Int, Int>)
 
-class EngineSchematic(private val partNumbers: Set<Number>) {
-    fun total() = partNumbers.sumOf { it.value.toInt() }
+class EngineSchematic(private val numbers: Set<Number>, private val symbols: Set<Symbol>) {
+    fun total() = partNumbers().sumOf { it.value.toInt() }
+
+    private fun partNumbers() = numbers.filter { number -> number.isNextToASymbol(symbols) }.toSet()
 }
