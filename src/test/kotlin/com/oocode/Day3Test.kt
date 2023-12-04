@@ -18,5 +18,6 @@ internal class Day3Test {
 ...${'$'}.*....
 .664.598.."""
         assertThat(engineSchematicFrom(input).total(), equalTo(4361))
+        assertThat(engineSchematicFrom(input).gearRatiosTotal(), equalTo(467835))
     }
 }
