@@ -1,11 +1,11 @@
 package com.oocode
 
 fun powerOf(input: String) =
-    input.split("\n").map { line -> gameFrom(line).power() }.sum()
+    input.split("\n").sumOf { line -> gameFrom(line).power() }
 
 data class Bag(val red: Int, val green: Int, val blue: Int) {
     fun possibilityTotal(input: String) =
-        input.split("\n").map { line -> line.possibilityValue(this) }.sum()
+        input.split("\n").sumOf { line -> line.possibilityValue(this) }
 
     fun power() = red * green * blue
 }
@@ -35,7 +35,7 @@ fun gameFrom(line: String): Game {
 }
 
 fun revealFrom(revealString: String): Reveal {
-    val colorNumberPairs = revealString.split(",").map { asColorNumberPair(it.trim()) }.toMap()
+    val colorNumberPairs = revealString.split(",").associate { asColorNumberPair(it.trim()) }
     return Reveal(
         red = colorNumberPairs["red"] ?: 0,
         green = colorNumberPairs["green"] ?: 0,

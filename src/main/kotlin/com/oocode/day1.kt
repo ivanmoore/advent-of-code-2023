@@ -1,6 +1,6 @@
 package com.oocode
 
-fun day1(input: String) = input.split("\n").map { line -> line.calibrationValue() }.sum()
+fun day1(input: String) = input.split("\n").sumOf { line -> line.calibrationValue() }
 
 fun String.calibrationValue() = (firstDigit() * 10) + lastDigit()
 
@@ -11,9 +11,7 @@ private fun String.lastDigit() = digits().last().digitToInt()
 val numberWords = listOf("one", "two", "three", "four", "five", "six", "seven", "eight", "nine")
 
 fun String.digits() = IntRange(0, this.length - 1)
-    .map { index ->
-        this.digitifyStartingAt(index)
-    }.joinToString("")
+    .joinToString("") { index -> digitifyStartingAt(index) }
 
 fun String.digitifyStartingAt(index: Int) =
     if (this[index].isDigit())
