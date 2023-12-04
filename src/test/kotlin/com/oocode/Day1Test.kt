@@ -2,8 +2,6 @@ package com.oocode
 
 import com.natpryce.hamkrest.assertion.assertThat
 import com.natpryce.hamkrest.equalTo
-import day1
-import digits
 import org.junit.jupiter.api.Test
 
 internal class Day1Test {
