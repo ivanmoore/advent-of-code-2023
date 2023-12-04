@@ -1,15 +1,27 @@
 package com.oocode
 
+fun powerOf(input: String) =
+    input.split("\n").map { line -> gameFrom(line).power() }.sum()
+
 data class Bag(val red: Int, val green: Int, val blue: Int) {
     fun possibilityTotal(input: String) =
         input.split("\n").map { line -> line.possibilityValue(this) }.sum()
+
+    fun power() = red * green * blue
 }
 
 private fun String.possibilityValue(bag: Bag) = gameFrom(this).possibilityValue(bag)
 
 data class Game(val number: Int, val reveals: Set<Reveal>) {
     fun possibilityValue(bag: Bag) = if (reveals.all { it.isPossibleGiven(bag) }) number else 0
+    fun minimumBag() = reveals.maxBag()
+    fun power() = minimumBag().power()
 }
+
+private fun Set<Reveal>.maxBag() = Bag(red = maxRed(), green = maxGreen(), blue = maxBlue())
+private fun Set<Reveal>.maxRed() = maxOf { it.red }
+private fun Set<Reveal>.maxGreen() = maxOf { it.green }
+private fun Set<Reveal>.maxBlue() = maxOf { it.blue }
 
 data class Reveal(val red: Int = 0, val green: Int = 0, val blue: Int = 0) {
     fun isPossibleGiven(bag: Bag) = red <= bag.red && green <= bag.green && blue <= bag.blue

@@ -15,6 +15,7 @@ Game 4: 1 green, 3 red, 6 blue; 3 green, 6 red; 3 green, 15 blue, 14 red
 Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green"""
         val bag = Bag(red = 12, green = 13, blue = 14)
         assertThat(bag.possibilityTotal(input), equalTo(8))
+        assertThat(powerOf(input), equalTo(2286))
     }
 
     @Test
@@ -26,5 +27,20 @@ Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green"""
                 Reveal(red = 1, green = 2, blue = 6),
                 Reveal(green = 2)
             )))
+    }
+
+    @Test
+    fun canCalculateMinimumBag() {
+        assertEquals(
+            gameFrom("Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green").minimumBag(),
+            Bag(red = 4, green = 2, blue = 6))
+    }
+
+    @Test
+    fun canCalculateBagPower() {
+        assertEquals(
+            Bag(red = 4, green = 2, blue = 6).power(),
+            48
+        )
     }
 }
