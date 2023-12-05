@@ -22,3 +22,7 @@ data class Mapping(
         else
             null
 }
+
+class Converter(private val mappings: List<Mapping>){
+    fun convert(sourceNumber: Int) = mappings.firstNotNullOfOrNull { it.find(sourceNumber) } ?: sourceNumber
+}

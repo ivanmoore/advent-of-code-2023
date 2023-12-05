@@ -53,4 +53,24 @@ humidity-to-location map:
         assertThat(mapping.find(99), equalTo(51))
         assertThat(mapping.find(100), equalTo(null))
     }
+
+    @Test
+    fun calculatesCorrectConversion() {
+        val mapping1 = Mapping(50, 98, 2)
+        val mapping2 = Mapping(52, 50, 48)
+        val converter = Converter(listOf(mapping1, mapping2))
+
+        assertThat(converter.convert(0), equalTo(0))
+        assertThat(converter.convert(1), equalTo(1))
+
+        assertThat(converter.convert(48), equalTo(48))
+        assertThat(converter.convert(49), equalTo(49))
+        assertThat(converter.convert(50), equalTo(52))
+        assertThat(converter.convert(51), equalTo(53))
+
+        assertThat(converter.convert(96), equalTo(98))
+        assertThat(converter.convert(97), equalTo(99))
+        assertThat(converter.convert(98), equalTo(50))
+        assertThat(converter.convert(99), equalTo(51))
+    }
 }
