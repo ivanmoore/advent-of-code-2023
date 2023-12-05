@@ -44,4 +44,13 @@ humidity-to-location map:
 56 93 4"""
         assertThat(almanacFrom(input).lowestLocationNumber(), equalTo(35))
     }
+
+    @Test
+    fun calculatesCorrectMapping() {
+        val mapping = Mapping(50, 98, 2)
+        assertThat(mapping.find(97), equalTo(null))
+        assertThat(mapping.find(98), equalTo(50))
+        assertThat(mapping.find(99), equalTo(51))
+        assertThat(mapping.find(100), equalTo(null))
+    }
 }
