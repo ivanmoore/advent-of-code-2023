@@ -73,4 +73,21 @@ humidity-to-location map:
         assertThat(converter.convert(98), equalTo(50))
         assertThat(converter.convert(99), equalTo(51))
     }
+
+    @Test
+    fun canChainConverters() {
+        val converter1 = Converter(listOf(
+            Mapping(50, 98, 2),
+            Mapping(52, 50, 48)))
+        val converter2 = Converter(listOf(
+            Mapping(0, 15, 37),
+            Mapping(37, 52, 2),
+            Mapping(39, 0, 15)))
+
+        val converter = ConverterChain(listOf(converter1, converter2))
+        assertThat(converter.convert(79), equalTo(81))
+        assertThat(converter.convert(14), equalTo(53))
+        assertThat(converter.convert(55), equalTo(57))
+        assertThat(converter.convert(13), equalTo(52))
+    }
 }

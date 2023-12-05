@@ -23,6 +23,11 @@ data class Mapping(
             null
 }
 
-class Converter(private val mappings: List<Mapping>){
+class Converter(private val mappings: List<Mapping>) {
     fun convert(sourceNumber: Int) = mappings.firstNotNullOfOrNull { it.find(sourceNumber) } ?: sourceNumber
+}
+
+class ConverterChain(private val converters: List<Converter>) {
+    fun convert(sourceNumber: Int) =
+        converters.fold(sourceNumber, { accumulator, converter -> converter.convert(accumulator) })
 }
