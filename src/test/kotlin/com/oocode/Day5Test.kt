@@ -44,6 +44,18 @@ humidity-to-location map:
     }
 
     @Test
+    fun canParseReallyBigNumbers() {
+        val input = """seeds: 3911195009
+
+seed-to-soil map:
+3911195109 3911195009 1
+
+soil-to-fertilizer map:
+0 15 37"""
+        assertThat(almanacFrom(input).lowestLocationNumber(), equalTo(3911195109))
+    }
+
+    @Test
     fun calculatesCorrectMapping() {
         val mapping = Mapping(50, 98, 2)
         assertThat(mapping.find(97), equalTo(null))
