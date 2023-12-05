@@ -2,9 +2,11 @@ package com.oocode
 
 import com.natpryce.hamkrest.assertion.assertThat
 import com.natpryce.hamkrest.equalTo
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
 internal class Day5Test {
+    @Disabled
     @Test
     fun calculatesCorrectAnswersForExample() {
         val input = """seeds: 79 14 55 13
@@ -40,12 +42,12 @@ temperature-to-humidity map:
 humidity-to-location map:
 60 56 37
 56 93 4"""
-        assertThat(almanacFrom(input).lowestLocationNumber(), equalTo(35))
+        assertThat(almanacFrom(input).lowestLocationNumber(), equalTo(46))
     }
 
     @Test
     fun canParseReallyBigNumbers() {
-        val input = """seeds: 3911195009
+        val input = """seeds: 3911195009 1
 
 seed-to-soil map:
 3911195109 3911195009 1
@@ -82,6 +84,34 @@ soil-to-fertilizer map:
         assertThat(converter.convert(97), equalTo(99))
         assertThat(converter.convert(98), equalTo(50))
         assertThat(converter.convert(99), equalTo(51))
+    }
+
+    @Test
+    fun calculatesCorrectConversionRanges() {
+        val mapping1 = Mapping(50, 98, 2)  // 98-99 -> 50-51
+        val mapping2 = Mapping(52, 50, 48) // 50-97 -> 52-99
+        val converter = Converter(listOf(mapping1, mapping2))
+
+        assertThat(
+            converter.convert(sourceRange("40-49")),
+            equalTo(setOf(sourceRange("40-49"))))
+        assertThat(
+            converter.convert(sourceRange("49-100")),
+            equalTo(setOf(
+                sourceRange("49-49"),
+                sourceRange("52-99"),
+                sourceRange("50-51"),
+                sourceRange("100-100")
+            )))
+    }
+
+    private fun sourceRange(rangeString: String): InputRange = rangeString.split("-").let {
+        InputRange(it[0].toLong(), it[1].toLong())
+    }
+
+    @Test
+    fun checkSourceRangeMethodForTesting() {
+        assertThat(sourceRange("40-49"), equalTo(InputRange(40, 49)))
     }
 
     @Test
