@@ -2,11 +2,9 @@ package com.oocode
 
 import com.natpryce.hamkrest.assertion.assertThat
 import com.natpryce.hamkrest.equalTo
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
 internal class Day5Test {
-    @Disabled
     @Test
     fun calculatesCorrectAnswersForExample() {
         val input = """seeds: 79 14 55 13
