@@ -10,7 +10,7 @@ fun racesFrom(input: String): Races {
 
 private fun numbersFrom(line: String) =
     Regex("(\\d+)")
-        .findAll(line)
+        .findAll(line.replace(" ", ""))
         .map { it.value.toInt() }
         .toList()
 
