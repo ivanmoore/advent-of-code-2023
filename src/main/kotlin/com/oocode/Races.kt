@@ -9,9 +9,7 @@ class Races {
 }
 
 class Race(val length: Int, val record: Int) {
-    fun numberOfWaysYouCouldWin(): Int {
-        TODO("Not yet implemented")
-    }
+    fun numberOfWaysYouCouldWin() = raceDistances(length).filter { it > record }.size
 }
 
 fun raceDistances(length: Int): List<Int> = IntRange(1, length - 1).map { distance(length, it) }

@@ -14,7 +14,6 @@ Distance:  9  40  200"""
         assertThat(racesFrom(input).recordFactor(), equalTo(288))
     }
 
-    @Disabled
     @Test
     fun calculatesCorrectAnswerForExamples() {
         assertThat(Race(length = 7, record = 9).numberOfWaysYouCouldWin(), equalTo(4))
