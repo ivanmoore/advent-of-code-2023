@@ -26,6 +26,6 @@ Distance:  9  40  200"""
 
     @Test
     fun calculatesTimes() {
-        assertThat(raceDistances(7), equalTo(listOf(6, 10, 12, 12, 10, 6)))
+        assertThat(raceDistances(7), equalTo(listOf(6L, 10L, 12L, 12L, 10L, 6L)))
     }
 }

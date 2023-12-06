@@ -11,7 +11,7 @@ fun racesFrom(input: String): Races {
 private fun numbersFrom(line: String) =
     Regex("(\\d+)")
         .findAll(line.replace(" ", ""))
-        .map { it.value.toInt() }
+        .map { it.value.toLong() }
         .toList()
 
 class Races(private val races: List<Race>) {
@@ -19,11 +19,11 @@ class Races(private val races: List<Race>) {
         accumulator * race.numberOfWaysYouCouldWin()})
 }
 
-class Race(val length: Int, val record: Int) {
+class Race(val length: Long, val record: Long) {
     fun numberOfWaysYouCouldWin() = raceDistances(length).filter { it > record }.size
 }
 
-fun raceDistances(length: Int): List<Int> = IntRange(1, length - 1).map { distance(length, it) }
+fun raceDistances(length: Long): List<Long> = LongRange(1, length - 1).map { distance(length, it) }
 
-private fun distance(length: Int, timeToHoldDownButton: Int) =
+private fun distance(length: Long, timeToHoldDownButton: Long) =
     (length - timeToHoldDownButton) * timeToHoldDownButton
