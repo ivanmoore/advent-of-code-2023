@@ -36,7 +36,7 @@ private fun numbersFrom(line: String) =
         .toList()
 
 class Almanac(private val seeds: List<InputRange>, private val converterChain: ConverterChain) {
-    fun lowestLocationNumber() = seeds.map { it.startNumber }.minOf { converterChain.convert(it) }
+    fun lowestLocationNumber() = seeds.flatMap { converterChain.convert(it) }.map { it.startNumber }.min()
 }
 
 data class Mapping(
@@ -55,6 +55,8 @@ data class Mapping(
 
 class Converter(private val mappings: List<Mapping>) {
     fun convert(sourceNumber: Long) = mappings.firstNotNullOfOrNull { it.find(sourceNumber) } ?: sourceNumber
+
+    fun convert(inputRanges: Set<InputRange>): Set<InputRange> = inputRanges.flatMap { convert(it) }.toSet()
 
     fun convert(inputRange: InputRange): Set<InputRange> {
         val mappingsInOrder = overlappingMappings(inputRange)
@@ -86,6 +88,6 @@ private fun LongRange.overlapsWith(inputRange: InputRange) =
     !(inputRange.endNumber < start || inputRange.startNumber > endInclusive)
 
 class ConverterChain(private val converters: List<Converter>) {
-    fun convert(sourceNumber: Long) =
-        converters.fold(sourceNumber, { accumulator, converter -> converter.convert(accumulator) })
+    fun convert(sourceNumber: InputRange) =
+        converters.fold(setOf(sourceNumber), { accumulator, converter -> converter.convert(accumulator) })
 }

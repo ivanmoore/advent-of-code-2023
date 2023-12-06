@@ -2,11 +2,9 @@ package com.oocode
 
 import com.natpryce.hamkrest.assertion.assertThat
 import com.natpryce.hamkrest.equalTo
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
 internal class Day5Test {
-    @Disabled
     @Test
     fun calculatesCorrectAnswersForExample() {
         val input = """seeds: 79 14 55 13
@@ -125,9 +123,9 @@ soil-to-fertilizer map:
             Mapping(39, 0, 15)))
 
         val converter = ConverterChain(listOf(converter1, converter2))
-        assertThat(converter.convert(79), equalTo(81))
-        assertThat(converter.convert(14), equalTo(53))
-        assertThat(converter.convert(55), equalTo(57))
-        assertThat(converter.convert(13), equalTo(52))
+        assertThat(converter.convert(InputRange(79,79)), equalTo(setOf(InputRange(81,81))))
+        assertThat(converter.convert(InputRange(14,14)), equalTo(setOf(InputRange(53,53))))
+        assertThat(converter.convert(InputRange(55,55)), equalTo(setOf(InputRange(57,57))))
+        assertThat(converter.convert(InputRange(13,13)), equalTo(setOf(InputRange(52,52))))
     }
 }
