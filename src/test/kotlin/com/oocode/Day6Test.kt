@@ -23,9 +23,4 @@ Distance:  9  40  200"""
     fun calculatesCorrectAnswerForBigExample() {
         assertThat(Race(length = 71530, record = 940200).numberOfWaysYouCouldWin(), equalTo(71503))
     }
-
-    @Test
-    fun calculatesTimes() {
-        assertThat(raceDistances(7), equalTo(listOf(6L, 10L, 12L, 12L, 10L, 6L)))
-    }
 }

@@ -20,10 +20,5 @@ class Races(private val races: List<Race>) {
 }
 
 class Race(val length: Long, val record: Long) {
-    fun numberOfWaysYouCouldWin() = raceDistances(length).filter { it > record }.size
+    fun numberOfWaysYouCouldWin() = LongRange(1, length - 1).map { (length - it) * it }.filter { it > record }.size
 }
-
-fun raceDistances(length: Long): List<Long> = LongRange(1, length - 1).map { distance(length, it) }
-
-private fun distance(length: Long, timeToHoldDownButton: Long) =
-    (length - timeToHoldDownButton) * timeToHoldDownButton
