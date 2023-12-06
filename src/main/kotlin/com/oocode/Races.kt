@@ -20,5 +20,7 @@ class Races(private val races: List<Race>) {
 }
 
 class Race(val length: Long, val record: Long) {
-    fun numberOfWaysYouCouldWin() = LongRange(1, length - 1).map { (length - it) * it }.filter { it > record }.size
+    fun numberOfWaysYouCouldWin() = LongRange(1, length - 1)
+        .fold(0, { accumulator, timeToHoldDownButton -> accumulator +
+                if(((length - timeToHoldDownButton) * timeToHoldDownButton) > record) 1 else 0 })
 }
