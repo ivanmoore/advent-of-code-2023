@@ -23,7 +23,8 @@ QQQJA 483"""
     fun canRankHandsComparedToEachOther() {
         val inWinningOrder = listOf(
             "AAAAA" to "AA8AA",
-            "AA8AA" to "23332"
+            "AA8AA" to "23332",
+            "23332" to "TTT98"
         )
         for (pair in inWinningOrder) {
             assertWinner(pair.first, pair.second)
