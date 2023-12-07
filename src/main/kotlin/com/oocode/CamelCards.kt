@@ -13,9 +13,13 @@ data class CamelCardHand(val cards: String) {
         HIGH_CARD, ONE_PAIR, TWO_PAIR, THREE_OF_A_KIND, FULL_HOUSE, FOUR_OF_A_KIND, FIVE_OF_A_KIND
     }
 
+    private val labels = "AKQJT98765432".reversed()
+
     operator fun compareTo(that: CamelCardHand): Int {
         if (this.type() == that.type()) {
-            return this.cards.compareTo(that.cards)
+            fun makeEasilyComparable(cards: String) =
+                cards.map { labels.indexOf(it) }.map { 'a'.plus(it) }.toString()
+            return makeEasilyComparable(this.cards).compareTo(makeEasilyComparable(that.cards))
         }
         return this.type().compareTo(that.type())
     }

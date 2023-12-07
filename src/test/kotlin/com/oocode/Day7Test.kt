@@ -45,6 +45,23 @@ QQQJA 483"""
         }
     }
 
+    @Test
+    fun canRankHandsTakingSpecialCardValuesIntoAccount() {
+        val inWinningOrder = listOf(
+            "AAAAA" to "KKKKK",
+            "KKKKK" to "QQQQQ",
+            "QQQQQ" to "JJJJJ",
+            "JJJJJ" to "TTTTT",
+            "TTTTT" to "99999",
+            "99999" to "88888",
+            "88888" to "22222",
+            "AAAAA" to "22222",
+        )
+        for (pair in inWinningOrder) {
+            assertWinner(pair.first, pair.second)
+        }
+    }
+
     private fun assertWinner(winner: String, loser: String) {
         val message = "comparing $winner vs $loser"
         assertTrue(camelCardHandFrom(winner) > camelCardHandFrom(loser), message)
