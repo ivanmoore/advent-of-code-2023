@@ -1,27 +1,32 @@
 package com.oocode
 
-fun camelCardHandsFrom(input: String): CamelCardHands = TODO()
+fun camelCardHandsFrom(input: String): CamelCardHands =
+    CamelCardHands(input.split("\n")
+        .map { line -> line.split(" ").let { CamelCardHand(it[0]) to it[1].toInt() } })
 
-class CamelCardHands {
+class CamelCardHands(private val handsWithBids: List<Pair<CamelCardHand, Int>>) {
     fun totalWinnings(): Int {
-        TODO("Not yet implemented")
+        val sortedBy = handsWithBids.sortedBy { it.first }
+        return sortedBy.foldIndexed(0, { index, accumulator, cardWithBid ->
+            accumulator + (cardWithBid.second * (index + 1))
+        })
     }
 }
 
-data class CamelCardHand(val cards: String) {
+data class CamelCardHand(val cards: String) : Comparable<CamelCardHand> {
     enum class Type {
         HIGH_CARD, ONE_PAIR, TWO_PAIR, THREE_OF_A_KIND, FULL_HOUSE, FOUR_OF_A_KIND, FIVE_OF_A_KIND
     }
 
     private val labels = "AKQJT98765432".reversed()
 
-    operator fun compareTo(that: CamelCardHand): Int {
-        if (this.type() == that.type()) {
+    override operator fun compareTo(other: CamelCardHand): Int {
+        if (this.type() == other.type()) {
             fun makeEasilyComparable(cards: String) =
                 cards.map { labels.indexOf(it) }.map { 'a'.plus(it) }.toString()
-            return makeEasilyComparable(this.cards).compareTo(makeEasilyComparable(that.cards))
+            return makeEasilyComparable(this.cards).compareTo(makeEasilyComparable(other.cards))
         }
-        return this.type().compareTo(that.type())
+        return this.type().compareTo(other.type())
     }
 
     private fun type(): Type {
