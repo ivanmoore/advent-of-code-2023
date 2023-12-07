@@ -34,6 +34,17 @@ QQQJA 483"""
         }
     }
 
+    @Test
+    fun canRankHandsComparedToEachOtherForMatchingTypes() {
+        val inWinningOrder = listOf(
+            "33332" to "2AAAA",
+            "77888" to "77788"
+        )
+        for (pair in inWinningOrder) {
+            assertWinner(pair.first, pair.second)
+        }
+    }
+
     private fun assertWinner(winner: String, loser: String) {
         val message = "comparing $winner vs $loser"
         assertTrue(camelCardHandFrom(winner) > camelCardHandFrom(loser), message)

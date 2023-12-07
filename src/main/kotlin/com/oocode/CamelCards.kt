@@ -14,6 +14,9 @@ data class CamelCardHand(val cards: String) {
     }
 
     operator fun compareTo(that: CamelCardHand): Int {
+        if (this.type() == that.type()) {
+            return this.cards.compareTo(that.cards)
+        }
         return this.type().compareTo(that.type())
     }
 
