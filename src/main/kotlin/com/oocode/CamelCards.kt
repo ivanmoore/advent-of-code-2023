@@ -21,15 +21,20 @@ data class CamelCardHand(val cards: String) {
         val groupsOfSameCards = cards.groupBy { it }
         if (groupsOfSameCards.size == 1)
             return Type.FIVE_OF_A_KIND
-        if (groupsOfSameCards.size == 2) {
+        if (groupsOfSameCards.size == 2)
             if (groupsOfSameCards.map { it.value.size }.max() == 4)
                 return Type.FOUR_OF_A_KIND
-            else {
+            else
                 return Type.FULL_HOUSE
-            }
-        }
-
-        return Type.HIGH_CARD
+        if (groupsOfSameCards.size == 3)
+            if (groupsOfSameCards.map { it.value.size }.max() == 3)
+                return Type.THREE_OF_A_KIND
+            else
+                return Type.TWO_PAIR
+        if (groupsOfSameCards.size == 4)
+            return Type.ONE_PAIR
+        else
+            return Type.HIGH_CARD
     }
 }
 

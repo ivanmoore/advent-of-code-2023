@@ -24,7 +24,10 @@ QQQJA 483"""
         val inWinningOrder = listOf(
             "AAAAA" to "AA8AA",
             "AA8AA" to "23332",
-            "23332" to "TTT98"
+            "23332" to "TTT98",
+            "TTT98" to "23432",
+            "23432" to "A23A4",
+            "A23A4" to "23456"
         )
         for (pair in inWinningOrder) {
             assertWinner(pair.first, pair.second)
