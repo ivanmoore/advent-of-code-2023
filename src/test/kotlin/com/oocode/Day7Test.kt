@@ -22,7 +22,8 @@ QQQJA 483"""
     @Test
     fun canRankHandsComparedToEachOther() {
         val inWinningOrder = listOf(
-            "AAAAA" to "AA8AA"
+            "AAAAA" to "AA8AA",
+            "AA8AA" to "23332"
         )
         for (pair in inWinningOrder) {
             assertWinner(pair.first, pair.second)
@@ -30,14 +31,15 @@ QQQJA 483"""
     }
 
     private fun assertWinner(winner: String, loser: String) {
-        assertTrue(camelCardHandFrom(winner) > camelCardHandFrom(loser))
-        assertFalse(camelCardHandFrom(winner) < camelCardHandFrom(loser))
-        assertTrue(camelCardHandFrom(loser) < camelCardHandFrom(winner))
-        assertFalse(camelCardHandFrom(loser) > camelCardHandFrom(winner))
+        val message = "comparing $winner vs $loser"
+        assertTrue(camelCardHandFrom(winner) > camelCardHandFrom(loser), message)
+        assertFalse(camelCardHandFrom(winner) < camelCardHandFrom(loser), message)
+        assertTrue(camelCardHandFrom(loser) < camelCardHandFrom(winner), message)
+        assertFalse(camelCardHandFrom(loser) > camelCardHandFrom(winner), message)
 
-        assertTrue(camelCardHandFrom(winner) != camelCardHandFrom(loser))
-        assertTrue(camelCardHandFrom(loser) != camelCardHandFrom(winner))
-        assertTrue(camelCardHandFrom(winner) == camelCardHandFrom(winner))
-        assertTrue(camelCardHandFrom(loser) == camelCardHandFrom(loser))
+        assertTrue(camelCardHandFrom(winner) != camelCardHandFrom(loser), message)
+        assertTrue(camelCardHandFrom(loser) != camelCardHandFrom(winner), message)
+        assertTrue(camelCardHandFrom(winner) == camelCardHandFrom(winner), message)
+        assertTrue(camelCardHandFrom(loser) == camelCardHandFrom(loser), message)
     }
 }

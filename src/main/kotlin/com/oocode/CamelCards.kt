@@ -17,8 +17,15 @@ data class CamelCardHand(val cards: String) {
         return this.type().compareTo(that.type())
     }
 
-    private fun type() =
-        if (cards.toSet().size == 1) Type.FIVE_OF_A_KIND else Type.HIGH_CARD
+    private fun type(): Type {
+        val groupsOfSameCards = cards.groupBy { it }
+        if (groupsOfSameCards.size == 1)
+            return Type.FIVE_OF_A_KIND
+        if (groupsOfSameCards.size == 2 && groupsOfSameCards.map { it.value.size }.max() == 4)
+            return Type.FOUR_OF_A_KIND
+
+        return Type.HIGH_CARD
+    }
 }
 
 fun camelCardHandFrom(s: String) = CamelCardHand(s)
