@@ -18,7 +18,7 @@ data class CamelCardHand(val cards: String) : Comparable<CamelCardHand> {
         HIGH_CARD, ONE_PAIR, TWO_PAIR, THREE_OF_A_KIND, FULL_HOUSE, FOUR_OF_A_KIND, FIVE_OF_A_KIND
     }
 
-    private val labels = "AKQJT98765432".reversed()
+    private val labels = "AKQT98765432J".reversed()
 
     override operator fun compareTo(other: CamelCardHand): Int {
         if (this.type() == other.type()) {
