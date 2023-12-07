@@ -30,7 +30,8 @@ data class CamelCardHand(val cards: String) : Comparable<CamelCardHand> {
     }
 
     private fun type(): Type {
-        val groupsOfSameCards = cards.groupBy { it }
+        val cardsWithJSubstituted = cards.replace('J', mostCommonNonJCard())
+        val groupsOfSameCards = cardsWithJSubstituted.groupBy { it }
         if (groupsOfSameCards.size == 1)
             return Type.FIVE_OF_A_KIND
         if (groupsOfSameCards.size == 2)
@@ -48,6 +49,16 @@ data class CamelCardHand(val cards: String) : Comparable<CamelCardHand> {
         else
             return Type.HIGH_CARD
     }
+
+    private fun mostCommonNonJCard() =
+        if(cards == "JJJJJ") // very special case
+            'J'
+        else
+            cards.groupBy { it }
+                .filter { it.key != 'J' }
+                .map { it.value }
+                .sortedBy { it.size }
+                .reversed()[0][0] // doesn't matter which one of equal commonality
 }
 
 fun camelCardHandFrom(s: String) = CamelCardHand(s)

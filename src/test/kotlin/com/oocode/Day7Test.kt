@@ -4,11 +4,9 @@ import com.natpryce.hamkrest.assertion.assertThat
 import com.natpryce.hamkrest.equalTo
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
 internal class Day7Test {
-    @Disabled
     @Test
     fun calculatesCorrectAnswersForExample() {
         val input = """32T3K 765
@@ -56,6 +54,18 @@ QQQJA 483"""
             "88888" to "22222",
             "AAAAA" to "22222",
             "22222" to "JJJJJ",
+        )
+        for (pair in inWinningOrder) {
+            assertWinner(pair.first, pair.second)
+        }
+    }
+
+    @Test
+    fun canRankHandsTakingJCardValuesIntoAccount() {
+        val inWinningOrder = listOf(
+            "QQQQ2" to "JKKK2",
+            "QQQJA" to "T55J5",
+            "KTJJT" to "QQQJA"
         )
         for (pair in inWinningOrder) {
             assertWinner(pair.first, pair.second)
