@@ -4,7 +4,6 @@ import com.natpryce.hamkrest.assertion.assertThat
 import com.natpryce.hamkrest.equalTo
 import com.oocode.Choice.Left
 import com.oocode.Choice.Right
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
 internal class Day8Test {
@@ -49,7 +48,6 @@ ZZZ = (ZZZ, ZZZ)"""
             )))
     }
 
-    @Disabled
     @Test
     fun calculatesCorrectAnswersForGhostExample() {
         val input = """LR

@@ -18,13 +18,13 @@ data class CamelMap(
 
     fun numberOfSteps(): Int {
         var result = 0
-        var currentNode = nodesByName["AAA"]!!
+        var currentNodes = nodes.filter { it.name.endsWith("A") }
         while (true) {
             instructions.forEach { instruction ->
-                if(currentNode.name == "ZZZ")
+                if(currentNodes.all { it.name.endsWith("Z") })
                     return result
                 result++
-                currentNode = nodesByName[currentNode.follow(instruction)]!!
+                currentNodes = currentNodes.map { nodesByName[it.follow(instruction)]!! }
             }
         }
     }
