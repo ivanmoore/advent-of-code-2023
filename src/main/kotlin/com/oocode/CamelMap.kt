@@ -14,8 +14,19 @@ data class CamelMap(
     private val instructions: List<Choice>,
     private val nodes: List<Node>
 ) {
+    private val nodesByName = nodes.associateBy { it.name }
+
     fun numberOfSteps(): Int {
-        TODO()
+        var result = 0
+        var currentNode = nodesByName["AAA"]!!
+        while (true) {
+            instructions.forEach { instruction ->
+                if(currentNode.name == "ZZZ")
+                    return result
+                result++
+                currentNode = nodesByName[currentNode.follow(instruction)]!!
+            }
+        }
     }
 }
 
@@ -30,4 +41,7 @@ fun nodeFrom(line: String): Node = line
     }
 
 data class Children(val left: String, val right: String)
-data class Node(val name: String, val children: Children)
+data class Node(val name: String, val children: Children) {
+    fun follow(instruction: Choice) =
+        if(instruction==Choice.Left) children.left else children.right
+}
