@@ -16,15 +16,21 @@ data class CamelMap(
 ) {
     private val nodesByName = nodes.associateBy { it.name }
 
-    fun numberOfSteps(): Int {
-        var result = 0
-        var currentNodes = nodes.filter { it.name.endsWith("A") }
+    fun numberOfSteps(): Long {
+        val startNodes = nodes.filter { it.name.endsWith("A") }
+        val numberOfStepsForEveryStartingNode = startNodes.map { numberOfSteps(it) }
+        return findLCMOfListOfNumbers(numberOfStepsForEveryStartingNode)
+    }
+
+    private fun numberOfSteps(startNode: Node): Long {
+        var currentNode = startNode
+        var result = 0L
         while (true) {
             instructions.forEach { instruction ->
-                if(currentNodes.all { it.name.endsWith("Z") })
+                if (currentNode.name.endsWith("Z"))
                     return result
                 result++
-                currentNodes = currentNodes.map { nodesByName[it.follow(instruction)]!! }
+                currentNode = nodesByName[currentNode.follow(instruction)]!!
             }
         }
     }
@@ -44,4 +50,27 @@ data class Children(val left: String, val right: String)
 data class Node(val name: String, val children: Children) {
     fun follow(instruction: Choice) =
         if(instruction==Choice.Left) children.left else children.right
+}
+
+// Copied from https://www.baeldung.com/kotlin/lcm (and then replaced Int with Long)
+// because I'm not interested in this part of the solution.
+// I would expect this to be a thing you could find in a library
+fun findLCM(a: Long, b: Long): Long {
+    val larger = if (a > b) a else b
+    val maxLcm = a * b
+    var lcm = larger
+    while (lcm <= maxLcm) {
+        if (lcm % a == 0L && lcm % b == 0L) {
+            return lcm
+        }
+        lcm += larger
+    }
+    return maxLcm
+}
+fun findLCMOfListOfNumbers(numbers: List<Long>): Long {
+    var result = numbers[0]
+    for (i in 1 until numbers.size) {
+        result = findLCM(result, numbers[i])
+    }
+    return result
 }
