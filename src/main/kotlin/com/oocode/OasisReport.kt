@@ -16,3 +16,8 @@ data class OasisHistory(private val history: List<Int>) {
         TODO()
     }
 }
+
+fun nextHistoryRow(input: List<Int>) =
+    input.mapIndexed { index, i ->
+        i - input[Math.max(0, index - 1)]
+    }.drop(1)
