@@ -12,9 +12,17 @@ data class OasisReport(private val histories: List<OasisHistory>) {
 }
 
 data class OasisHistory(private val history: List<Int>) {
-    fun extrapolatedValue(): Int {
-        TODO()
-    }
+    fun extrapolatedValue(): Int = extrapolated().map { it.last() }.sum()
+
+    private fun extrapolated(): List<OasisHistory> =
+        listOf(this) +
+                if (history.all { it == 0 }) {
+                    emptyList()
+                } else {
+                    OasisHistory(nextHistoryRow(history)).extrapolated()
+                }
+
+    private fun last() = history[history.size - 1]
 }
 
 fun nextHistoryRow(input: List<Int>) =

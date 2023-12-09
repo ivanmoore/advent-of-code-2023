@@ -2,11 +2,9 @@ package com.oocode
 
 import com.natpryce.hamkrest.assertion.assertThat
 import com.natpryce.hamkrest.equalTo
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
 internal class Day9Test {
-    @Disabled
     @Test
     fun calculatesCorrectAnswersForExample() {
         val input = """0 3 6 9 12 15
@@ -15,7 +13,6 @@ internal class Day9Test {
         assertThat(oasisReportFrom(input).extrapolatedValuesSum(), equalTo(114))
     }
 
-    @Disabled
     @Test
     fun calculatesCorrectAnswersForSingleExamples() {
         assertThat(
