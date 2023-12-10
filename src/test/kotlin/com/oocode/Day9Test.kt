@@ -10,22 +10,22 @@ internal class Day9Test {
         val input = """0 3 6 9 12 15
 1 3 6 10 15 21
 10 13 16 21 30 45"""
-        assertThat(oasisReportFrom(input).extrapolatedValuesSum(), equalTo(114))
+        assertThat(oasisReportFrom(input).extrapolatedValuesSum(), equalTo(2))
     }
 
     @Test
     fun calculatesCorrectAnswersForSingleExamples() {
         assertThat(
             OasisHistory(listOf(0, 3, 6, 9, 12, 15))
-                .extrapolatedValue(), equalTo(18)
+                .extrapolatedValue(), equalTo(-3)
         )
         assertThat(
             OasisHistory(listOf(1, 3, 6, 10, 15, 21))
-                .extrapolatedValue(), equalTo(28)
+                .extrapolatedValue(), equalTo(0)
         )
         assertThat(
             OasisHistory(listOf(10, 13, 16, 21, 30, 45))
-                .extrapolatedValue(), equalTo(68)
+                .extrapolatedValue(), equalTo(5)
         )
     }
 
